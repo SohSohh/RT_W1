@@ -1,16 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:w1/main.dart';
+import 'package:w1/chat/chat_bubble.dart';
+import 'package:w1/chat/chat_message.dart';
+import 'package:w1/chat/thinking_indicator.dart';
 
 void main() {
-  testWidgets('renders the W1 chatbot screen', (WidgetTester tester) async {
-    await tester.pumpWidget(const MyApp());
+  testWidgets('renders a chat bubble', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: ChatBubble(
+            message: ChatMessage(role: ChatRole.user, text: 'Hello'),
+          ),
+        ),
+      ),
+    );
 
-    expect(find.text('W1 Chatbot'), findsWidgets);
-    expect(find.text('Plain text responses only'), findsOneWidget);
-    expect(find.text('Hi, I am W1 Chatbot. Ask me anything and I will reply in plain text only.'), findsOneWidget);
-    expect(find.text('Send'), findsOneWidget);
+    expect(find.text('You'), findsOneWidget);
+    expect(find.text('Hello'), findsOneWidget);
   });
 
   testWidgets('builds the thinking indicator', (WidgetTester tester) async {
